@@ -32,6 +32,7 @@ def mysteryword():
     guess_another = "yes"
     guess_count = 0
     wrong_guesses = []
+    print(mystery_word)
     while guess_another == "yes":
         print(" ".join(gameboard))
         print("Your word has " + str(len(mystery_word)) + " letters.")
@@ -50,6 +51,21 @@ def mysteryword():
                 print("That letter is not in the word.")
                 print("You have " + (str(8 - guess_count)) + " guesses remaining.")
                 wrong_guesses.append(guess)
+        if mystery_word == ("".join(gameboard)):
+            play_again = input("You win! Would you like to play again? ")
+            if play_again == "no":
+                quit()
+            if play_again == "yes":
+                level = input("Easy, normal, or hard? ")
+            if level == "easy":
+                mystery_word = random.choice(easy_words).lower()
+            elif level == "normal":
+                mystery_word = random.choice(normal_words).lower()
+            elif level == "hard":
+                mystery_word = random.choice(hard_words).lower()
+            gameboard = ["_"] * len(mystery_word)
+            guess_count = 0
+            wrong_guesses = []
         if guess_count == 8:
             play_again = input("You lose. Your word was '" + mystery_word + "' Would you like to play again? ")
             if play_again == "no":
@@ -66,6 +82,5 @@ def mysteryword():
             guess_count = 0
             wrong_guesses = []
             
-
 
 mysteryword()
