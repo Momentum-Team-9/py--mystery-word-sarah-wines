@@ -27,25 +27,45 @@ def mysteryword():
         mystery_word = random.choice(normal_words).lower()
     elif level == "hard":
         mystery_word = random.choice(hard_words).lower()
-    print(mystery_word)
     gameboard = ["_"] * len(mystery_word)
     # gameover = False
     guess_another = "yes"
+    guess_count = 0
+    wrong_guesses = []
     while guess_another == "yes":
         print(" ".join(gameboard))
         print("Your word has " + str(len(mystery_word)) + " letters.")
         guess = input("Please guess a letter ")
         # print(guess)
         # while gameover is False:
-        guess_count = 0
         if guess in mystery_word:
             index = mystery_word.index(guess)
             gameboard[index] = guess
             # print(" ".join(gameboard))
         else:
-            guess_count += 1
-            print("That letter is not in the word.")
-            print("You have " + str(8-guess_count)+" guesses remaining, try again.")
+            if guess in wrong_guesses:
+                print("You've already guessed '" + guess + "' try another letter.")
+            else:
+                guess_count += 1
+                print("That letter is not in the word.")
+                print("You have " + (str(8 - guess_count)) + " guesses remaining.")
+                wrong_guesses.append(guess)
+        if guess_count == 8:
+            play_again = input("You lose. Your word was '" + mystery_word + "' Would you like to play again? ")
+            if play_again == "no":
+                quit()
+            if play_again == "yes":
+                level = input("Easy, normal, or hard? ")
+            if level == "easy":
+                mystery_word = random.choice(easy_words).lower()
+            elif level == "normal":
+                mystery_word = random.choice(normal_words).lower()
+            elif level == "hard":
+                mystery_word = random.choice(hard_words).lower()
+            gameboard = ["_"] * len(mystery_word)
+            guess_count = 0
+            wrong_guesses = []
+            
 
 
 mysteryword()
