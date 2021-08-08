@@ -14,33 +14,38 @@ def mysteryword():
     normal_words = []
     hard_words = []
     for word in words:
-        if len(word) == 4 or len(word) == 5:
+        if len(word) >= 4 and len(word) < 6:
             easy_words.append(word)
-        elif len(word) == 6 or len(word) == 7:
+        elif len(word) >= 6 and len(word) < 8:
             normal_words.append(word)
-        elif len(word) == 7 or len(word) == 8:
+        elif len(word) >= 8:
             hard_words.append(word)
-    level = input("Easy, normal, or hard?")
-    if level == "easy" or "Easy":
+    level = input("Easy, normal, or hard? ")
+    if level == "easy":
         mystery_word = random.choice(easy_words).lower()
-    if level == "normal" or "Normal":
+    elif level == "normal":
         mystery_word = random.choice(normal_words).lower()
-    if level == "hard" or "Hard":
+    elif level == "hard":
         mystery_word = random.choice(hard_words).lower()
     print(mystery_word)
     gameboard = ["_"] * len(mystery_word)
     # gameover = False
-    print(" ".join(gameboard))
-    print("Your word has " + str(len(mystery_word)) + " letters.")
-    guess = input("Please guess a letter, you have 8 guesses ")
-    print(guess)
-    # while gameover is False:
-    if guess in mystery_word:
-        index = mystery_word.index(guess)
-        gameboard[index] = guess
-        print(gameboard)
-    else:
-        print("That letter does not appear, you have X guesses remaining, try again.")
+    guess_another = "yes"
+    while guess_another == "yes":
+        print(" ".join(gameboard))
+        print("Your word has " + str(len(mystery_word)) + " letters.")
+        guess = input("Please guess a letter ")
+        # print(guess)
+        # while gameover is False:
+        guess_count = 0
+        if guess in mystery_word:
+            index = mystery_word.index(guess)
+            gameboard[index] = guess
+            # print(" ".join(gameboard))
+        else:
+            guess_count += 1
+            print("That letter is not in the word.")
+            print("You have " + str(8-guess_count)+" guesses remaining, try again.")
 
 
 mysteryword()
