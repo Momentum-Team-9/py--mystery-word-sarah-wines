@@ -56,7 +56,7 @@ def mysteryword():
         else:
             if guess in wrong_guesses:
                 print("You've already guessed '" + guess
-                      + "' try another letter.")
+                + "' try another letter.")
             else:
                 guess_count += 1
                 print("That letter is not in the word.")
